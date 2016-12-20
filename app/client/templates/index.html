@@ -11,13 +11,43 @@
 
 <body ng-controller="FlasklistController">
     <div class="container">
-        <h1>Flasklist</h1>
+        <h1>Santa's Nice List</h1>
         <br>
-        <p>Currently empty...</p>
+        <div>
+            <h3>Add a Full Name</h3>
+            <br>
+            {% raw %}
+            <form class="" action="/add" method="POST">
+                <div class="input-group" style="max-width:450px;">
+                    <input class="form-control input-lg" title="Add someone to the Nice List" placeholder="Full Name" type="text" name="name">
+                    <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">GO</button></span>
+                </div>
+            </form>
+            {% endraw %}
+        </div>
+        <div>
+            <h3>Nice List</h3>
+            <br>
+            <ul>
+            {% if people %}
+                {% for person in people %}
+                <li>{{person}}</li>
+                {% endfor %}
+            {% else %}
+                <em>Sorry, there seems to be no data...</em>
+            {% endif %}
+                <!-- {% raw %}
+                <li ng-repeat="person in {{people}}">
+                    <span>{{person}}</span>
+                </li>
+                {% endraw %} -->
+            </ul>
+        </div>
     </div>
     <br><br>
 
     <!-- scripts -->
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="{{ url_for('static', filename='main.js') }}"></script>

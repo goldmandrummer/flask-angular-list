@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="FlasklistApp">
+
+<head>
+    <title>Flasklist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- styles -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body ng-controller="FlasklistController">
+    <div class="container">
+        <h1>SUCCESS</h1>
+    </div>
+    <br><br>
+
+    <!-- scripts -->
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+
+</html>
