@@ -1,5 +1,4 @@
 from __init__ import app, db
-from sqlalchemy.dialects.postgresql import JSON
 
 
 class Person(db.Model):
@@ -10,6 +9,7 @@ class Person(db.Model):
 
     def __init__(self, name):
         self.name = name
+
 
     # def __repr__(self):
     #     return '<id {}>'.format(self.id)

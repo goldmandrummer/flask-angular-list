@@ -23,11 +23,11 @@
                     } else if (status === 200) {
                         $log.log(data);
                         $scope.loading = false;
-                        // $scope.submitButtonText = "Submit";
+
                         $scope.people = data;
                         $timeout.cancel(timeout);
 
-                        // IF edit-view, GET person MATCHING ID IN URL
+                        // IF edit-view, set $scope.person by url id
                         var url_array = $location.$$absUrl.split("/");
                         console.log('$location.$$absUrl.split("/")', url_array);
                         if (url_array[url_array.length - 2] == 'edit-view') {
@@ -60,11 +60,8 @@
 
                 $scope.loading = true;
 
-                // TODO: Remove unnecessary variable
-                var userInput = $scope.name;
-
                 $http.post('/add', {
-                    'name': userInput
+                    'name': $scope.name
                 }).
                 success(function(results) {
                     $log.log(results);
@@ -80,11 +77,8 @@
 
                 $scope.loading = true;
 
-                // TODO: Remove unnecessary variable
-                var name_copy = $scope.person.name;
-
                 $http.post('/edit/'+$scope.person.id, {
-                    'new_name': name_copy
+                    'new_name': $scope.person.name
                 }).
                 success(function(results) {
                     $log.log(results);

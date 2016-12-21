@@ -10,7 +10,6 @@ from models import Person
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # data = Person.query.order_by(Person.name).all()
     return render_template('index.html')
 
 
@@ -31,17 +30,6 @@ def addPerson():
         db.session.add(new)
         db.session.commit()
     return redirect('/')
-
-
-# @app.route('/save', methods=['POST'])
-# def addPerson():
-#     name = None
-#     if request.method == 'POST':
-#         name = request.form['name']
-#         new = Person(str(name))
-#         db.session.add(new)
-#         db.session.commit()
-#     return redirect('/')
 
 
 @app.route('/edit-view/<person_id>', methods=['GET'])
