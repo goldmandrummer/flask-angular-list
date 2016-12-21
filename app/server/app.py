@@ -2,6 +2,7 @@ import sys
 from __init__ import os, app, db
 from flask import Flask, render_template, redirect, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from pprint import pprint
 
 from models import Person
 
@@ -31,10 +32,29 @@ def addPerson():
     return redirect('/')
 
 
+# @app.route('/save', methods=['POST'])
+# def addPerson():
+#     name = None
+#     if request.method == 'POST':
+#         name = request.form['name']
+#         new = Person(str(name))
+#         db.session.add(new)
+#         db.session.commit()
+#     return redirect('/')
+
+
+@app.route('/edit-view/<person_id>', methods=['GET'])
+def editView(person_id):
+    return render_template('edit-view.html', person_id=person_id)
+
+
 @app.route('/edit/<person_id>', methods=['PUT', 'POST'])
 def editPerson(person_id):
     name = None
+    print('\nREQUEST VALUES')
+    pprint(dir(request.values))
     name = request.values
+    print('TRYING editPerson && `name` = ', name)
     if name is None:
         print('`name = request.values` failed. Trying request.data...', file=sys.stderr)
         name == request.data

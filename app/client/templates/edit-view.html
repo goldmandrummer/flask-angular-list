@@ -15,28 +15,28 @@
         <h1>Santa's Nice List</h1>
         <br>
         <div>
-            <h3>Add a Full Name</h3>
+            <h3>Edit Name</h3>
             <br>
         {% raw %}
-            <form class="" action="/add" method="POST">
+            <form class="" ng-submit="updatePerson()">
                 <div class="input-group" style="max-width:450px;">
-                    <input class="form-control" title="Add someone to the Nice List" placeholder="Full Name" type="text" name="name">
-                    <span class="input-group-btn"><button class="btn btn-primary" type="submit">Add</button></span>
+                    <input id="person-field" class="form-control" title="Edit Name" type="text" name="name" ng-model="person.name">
+                    <span class="input-group-btn"><button class="btn btn-primary" type="submit">Save</button></span>
                 </div>
             </form>
         {% endraw %}
         </div>
-        <div>
+        <!-- <div>
             <h3>Nice List</h3>
             <br>
             {% raw %}
             <ul id="list-ng">
                 <li ng-repeat="person in people track by $index">
-                    <a class="edit-link" id="person-{{person.id}}" href="/edit-view/{{person.id}}">{{person.name}}</a>
+                    <a class="edit-link" id="person-{{person.id}}" href="#">{{person.name}}</a>
                 </li>
             </ul>
             {% endraw %}
-        </div>
+        </div> -->
     </div>
     <br><br>
 
@@ -46,6 +46,30 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 
     <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+    <!-- {% raw %} -->
+    <script type="text/javascript">
+        // var controllerElement = document.querySelector('body');
+        // console.log(angular.element(controllerElement).scope());
+        // var url_array = window.location.href.split("/");
+        // var person_id = url_array[url_array.length - 1];
+        // console.log('person_id', person_id);
+
+        // var people_data = []; //{{people}}
+        // var person;
+        // people_data.forEach(function (item, index) {
+        //     if (item.id === person_id)
+        //         person = item;
+        // });
+        //
+        // $('#person-field').attr('value', person.name);
+        //
+        // function submitFunc() {
+        //     console.log('INSIDE submitFunc');
+        //     updatePerson(person_id);
+        // }
+    </script>
+    <!-- {% endraw %} -->
 </body>
 
 </html>
