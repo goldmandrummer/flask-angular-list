@@ -3,6 +3,7 @@ from __init__ import os, app, db
 from flask import Flask, render_template, redirect, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from pprint import pprint
+import json
 
 from models import Person
 
@@ -51,9 +52,9 @@ def editView(person_id):
 @app.route('/edit/<person_id>', methods=['PUT', 'POST'])
 def editPerson(person_id):
     name = None
-    print('\nREQUEST VALUES')
-    pprint(dir(request.values))
-    name = request.values
+    # print('\nREQUEST VALUES')
+    # pprint(dir(json.loads(request.data.decode())['new_name']))
+    name = json.loads(request.data.decode())['new_name']
     print('TRYING editPerson && `name` = ', name)
     if name is None:
         print('`name = request.values` failed. Trying request.data...', file=sys.stderr)

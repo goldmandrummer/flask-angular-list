@@ -103,7 +103,7 @@
 
                 // fire the API request
                 $http.post('/edit/'+$scope.person.id, {
-                    'name': name_copy
+                    'new_name': name_copy
                 }).
                 success(function(results) {
                     $log.log(results);
