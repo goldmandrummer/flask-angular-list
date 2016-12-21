@@ -108,6 +108,7 @@
                 success(function(results) {
                     $log.log(results);
                     $scope.loading = false;
+                    window.location = "/";
                 }).
                 error(function(error) {
                     $log.log(error);
