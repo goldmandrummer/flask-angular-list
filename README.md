@@ -80,3 +80,5 @@ Run the app from the ```flask-angular-list/server/``` directory.
 ```sh
 $ python3 app.py
 ```
+
+View it in your browser. The default location is http://127.0.0.1:5000/.
