@@ -50,19 +50,18 @@ def editView(person_id):
 
 
 @app.route('/edit/<person_id>', methods=['PUT', 'POST'])
-def editPerson(person_id):
-    name = None
-    # print('\nREQUEST VALUES')
-    # pprint(dir(json.loads(request.data.decode())['new_name']))
+def updatePerson(person_id):
     name = json.loads(request.data.decode())['new_name']
-    print('TRYING editPerson && `name` = ', name)
-    if name is None:
-        print('`name = request.values` failed. Trying request.data...', file=sys.stderr)
-        name == request.data
-    if name is None:
-        print ('No request data received', file=sys.stderr)
     target = Person.query.get(int(person_id))
     target.name = str(name)
+    db.session.commit()
+    return redirect('/')
+
+
+@app.route('/delete/<person_id>', methods=['DELETE', 'POST'])
+def deletePerson(person_id):
+    target = Person.query.get(int(person_id))
+    db.session.delete(target)
     db.session.commit()
     return redirect('/')
 

@@ -4,8 +4,8 @@
 
     angular.module('FlasklistApp', [])
 
-    .controller('FlasklistController', ['$scope', '$log', '$http', '$timeout',
-        function($scope, $log, $http, $timeout) {
+    .controller('FlasklistController', ['$scope', '$log', '$http', '$location', '$timeout',
+        function($scope, $log, $http, $location, $timeout) {
 
             $scope.loading = false;
             $scope.person = { 'id': 0, 'name': 'test'};
@@ -28,14 +28,14 @@
                         $timeout.cancel(timeout);
 
                         // IF edit-view, GET person MATCHING ID IN URL
-                        var url_array = window.location.href.split("/");
-                        console.log(url_array[url_array.length - 2]);
+                        var url_array = $location.$$absUrl.split("/");
+                        console.log('$location.$$absUrl.split("/")', url_array);
                         if (url_array[url_array.length - 2] == 'edit-view') {
                             var person_id = url_array[url_array.length - 1];
 
                             $scope.people.forEach(function (item, index) {
-                                if (item.id == url_array[url_array.length - 1]) {
-                                    $scope.person = jQuery.extend(true, {}, item);
+                                if (item.id == person_id) {
+                                    $scope.person = item;
                                     console.log('$scope.person', $scope.person);
                                 }
                             });
@@ -50,8 +50,6 @@
                 error(function(error) {
                     $log.log(error);
                     $scope.loading = false;
-                    // $scope.submitButtonText = "Submit";
-                    // $scope.urlerror = true;
                 });
 
             };
@@ -60,12 +58,11 @@
 
             $scope.addPerson = function() {
 
-                $log.log('test');
                 $scope.loading = true;
 
+                // TODO: Remove unnecessary variable
                 var userInput = $scope.name;
 
-                // fire the API request
                 $http.post('/add', {
                     'name': userInput
                 }).
@@ -79,32 +76,32 @@
 
             };
 
-            $scope.updatePerson = function() {
+            $scope.editPerson = function() {
 
-                // IF edit-view, GET person MATCHING ID IN URL
-                var person_id;
-                var url_array = window.location.href.split("/");
-                console.log(url_array[url_array.length - 2]);
-                if (url_array[url_array.length - 2] == 'edit-view') {
-                    person_id = url_array[url_array.length - 1];
-
-                    // $scope.people.forEach(function (item, index) {
-                    //     if (item.id == url_array[url_array.length - 1]) {
-                    //         $scope.person = jQuery.extend(true, {}, item);
-                    //     }
-                    // });
-                }
-
-                $log.log('test');
                 $scope.loading = true;
 
-                console.log('TADA $scope.person.name', $scope.person.name);
+                // TODO: Remove unnecessary variable
                 var name_copy = $scope.person.name;
 
-                // fire the API request
                 $http.post('/edit/'+$scope.person.id, {
                     'new_name': name_copy
                 }).
+                success(function(results) {
+                    $log.log(results);
+                    $scope.loading = false;
+                    window.location = "/";
+                }).
+                error(function(error) {
+                    $log.log(error);
+                });
+
+            };
+
+            $scope.removePerson = function() {
+
+                $scope.loading = true;
+
+                $http.post('/delete/'+$scope.person.id).
                 success(function(results) {
                     $log.log(results);
                     $scope.loading = false;
